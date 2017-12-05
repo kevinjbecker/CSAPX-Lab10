@@ -1,7 +1,7 @@
 /**
  * A description of a suitcase for the Trunks lab
  * @author James Heliotis
- * @author YOUR   NAME   HERE
+ * @author Kevin Becker
  */
 public class Suitcase {
 
@@ -27,7 +27,8 @@ public class Suitcase {
      * Is there no point in rotating this suitcase to make it fit?
      * @return true iff the length and width are the same
      */
-    public boolean isSquare() {
+    public boolean isSquare()
+    {
         return (length == width);
     }
 
@@ -35,7 +36,8 @@ public class Suitcase {
      * What would the suitcase be if it were turned 90 degrees?
      * @return a new suitcase with transposed dimensions
      */
-    public Suitcase turned() {
+    public Suitcase turned()
+    {
         return new Suitcase(this.name, this.width, this.length);
     }
 
@@ -43,7 +45,8 @@ public class Suitcase {
      * What is the name of this suitcase?
      * @return this suitcase's name, as provided in the constructor call
      */
-    public char getName() {
+    public char getName()
+    {
         return this.name;
     }
 
@@ -51,7 +54,8 @@ public class Suitcase {
      * What is the length of this suitcase?
      * @return this suitcase's length, as provided in the constructor call
      */
-    public int getLength() {
+    public int getLength()
+    {
         return this.length;
     }
 
@@ -59,7 +63,8 @@ public class Suitcase {
      * What is the width of this suitcase?
      * @return this suitcase's width, as provided in the constructor call
      */
-    public int getWidth() {
+    public int getWidth()
+    {
         return this.width;
     }
 
@@ -68,7 +73,8 @@ public class Suitcase {
      * @return a reasonable hash code that takes into account the entire state
      */
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Character.hashCode( this.name ) + this.length + this.width;
     }
 
@@ -79,7 +85,8 @@ public class Suitcase {
      *         (we assume all Suitcase objects have unique names)
      */
     @Override
-    public boolean equals( Object other ) {
+    public boolean equals( Object other )
+    {
         if ( this == other ) return true;
         try {
             Suitcase otherSC = (Suitcase)other;
