@@ -52,7 +52,6 @@ public class Backtracker {
             return Optional.of( config );
         }
         else {
-            //System.out.println("GETTING SUCCESSORS");
             for ( Configuration child : config.getSuccessors() ) {
                 if ( child.isValid() ) {
                     debugPrint( "\tValid successor", child );

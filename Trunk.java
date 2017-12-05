@@ -27,7 +27,7 @@ public class Trunk implements Configuration
         this.width = width;
 
         // the ones we want to add are in toAdd
-        this.toAdd = new ArrayList<>(toAdd);
+        this.toAdd = new ArrayList<>(  new HashSet<>(toAdd) );
 
         // trunkState char array of y by x
         this.trunkState = new char[width][length];
@@ -186,7 +186,7 @@ public class Trunk implements Configuration
         {
             for(int col = 0; col < trunkState[row].length; ++col)
             {
-                System.out.print(((this.trunkState[row][col] == '\u0000') ? 'x' : this.trunkState[row][col]) + " ");
+                System.out.print(((this.trunkState[row][col] == '\u0000') ? '-' : this.trunkState[row][col]) + " ");
             }
             System.out.println();
         }
