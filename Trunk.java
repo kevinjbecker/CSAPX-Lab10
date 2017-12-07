@@ -157,6 +157,8 @@ public class Trunk implements Configuration
     /**
      * Fills the spaces that a suitcase (which) takes up in a Trunk starting at a certain row and column.
      *
+     * This is what keeps the "state" updated to the most current status. This is called when we are getting successors.
+     *
      * @param startRow The row in the trunkState to begin filling at.
      * @param startCol The column in the trunkState to begin filling at.
      * @param which The suitcase we are attempting to "place" in trunkState.
@@ -168,6 +170,7 @@ public class Trunk implements Configuration
         {
             for(int col = startCol; col < startCol + which.getLength(); ++col)
             {
+                // sets the char at [row][col] to the Suitcase's name.
                 this.trunkState[row][col] = which.getName();
             }
         }
@@ -187,7 +190,7 @@ public class Trunk implements Configuration
     /**
      * Getter for the length of the Trunk.
      *
-     * @return The length of the Trunk.
+     * @return The length of the current Trunk.
      */
     private int getLength()
     {
@@ -197,7 +200,7 @@ public class Trunk implements Configuration
     /**
      * Getter for the width of the Trunk.
      *
-     * @return The width of the Trunk.
+     * @return The width of the current Trunk.
      */
     private int getWidth()
     {
