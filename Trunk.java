@@ -26,7 +26,7 @@ public class Trunk implements Configuration
     private List<Suitcase> toAdd;
 
     /**
-     * The "state" of the Trunk. A.K.A. a 2-D char array which has each suitcase in its position.
+     * The "state" of the Trunk. A.K.A. a 2D char array which has each suitcase in its position.
      */
     private char [][] trunkState;
 
@@ -58,6 +58,7 @@ public class Trunk implements Configuration
 
     private Trunk(Trunk toCopy)
     {
+
         // performs the constructor other constructor using the given trunk
         this( toCopy.getLength(), toCopy.getWidth(), new ArrayList<>( toCopy.getNotYetAdded()) );
 
@@ -206,7 +207,7 @@ public class Trunk implements Configuration
     /**
      * This always returns true since we are only generating valid configurations.
      *
-     * @return True always.
+     * @return True always because the getSuccessors() method only generates valid configurations.
      */
     @Override
     public boolean isValid()
@@ -229,7 +230,8 @@ public class Trunk implements Configuration
      * Displays the current state of the Trunk to standard output.
      */
     @Override
-    public void display() {
+    public void display()
+    {
         // goes through each row of trunkState
         for (char[] row : this.trunkState)
         {
