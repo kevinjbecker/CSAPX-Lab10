@@ -94,6 +94,7 @@ public class Tests {
         else {
             System.out.println( "NO :-(" );
         }
+
         System.out.println(
                 "Execution time " +
                 ( execTime / MSEC_PER_SEC ) +

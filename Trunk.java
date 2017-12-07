@@ -1,13 +1,33 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+/**
+ * The Trunk is a place to store our Suitcases. It has one major purpose: to determine the ways each suitcase can
+ * fit inside of it.
+ */
 public class Trunk implements Configuration
 {
+    /**
+     * The length of the Trunk.
+     */
     private int length;
 
+    /**
+     * The width of the Trunk.
+     */
     private int width;
 
+    /**
+     * The List of suitcases that are to be added to the Trunk.
+     */
     private List<Suitcase> toAdd;
 
+    /**
+     * The "state" of the Trunk. A.K.A. a 2-D char array which has each suitcase in its position.
+     */
     private char [][] trunkState;
 
     /**
@@ -18,7 +38,7 @@ public class Trunk implements Configuration
      * @param width The width of the Trunk.
      * @param toAdd The List of Suitcases to add to the Trunk.
      */
-    public Trunk(int length, int width, List<Suitcase> toAdd)
+    Trunk(int length, int width, List<Suitcase> toAdd)
     {
         // length = x / column
         this.length = length;
@@ -26,16 +46,19 @@ public class Trunk implements Configuration
         // width = y / row
         this.width = width;
 
+        // sorts the list (only really need this once)
+        toAdd.sort((s1, s2) -> (s2.getLength() * s2.getWidth()) -  (s1.getLength() * s1.getWidth()));
+
         // the ones we want to add are in toAdd
-        this.toAdd = new ArrayList<>(  new HashSet<>(toAdd) );
+        this.toAdd = new ArrayList<>( toAdd );
 
         // trunkState char array of y by x
         this.trunkState = new char[width][length];
     }
 
-    public Trunk(Trunk toCopy)
+    private Trunk(Trunk toCopy)
     {
-        // runs the constructor above using the given trunk
+        // performs the constructor other constructor using the given trunk
         this( toCopy.getLength(), toCopy.getWidth(), new ArrayList<>( toCopy.getNotYetAdded()) );
 
         // sets our new state (it will be changed later)
@@ -43,6 +66,12 @@ public class Trunk implements Configuration
             System.arraycopy(toCopy.trunkState[i], 0, this.trunkState[i],0, toCopy.trunkState[i].length);
     }
 
+    /**
+     * A method which returns a Collection that contains all of the successors to the current Configuration using the
+     * next suitcase in toAdd.
+     *
+     * @return A Collection of Trunk Configuration that are successors to the current Configuration.
+     */
     @Override
     public Collection<Configuration> getSuccessors()
     {
@@ -105,6 +134,15 @@ public class Trunk implements Configuration
         return true;
     }
 
+    /**
+     * Generates a new copy of the Trunk and adds in the Suitcase starting at the specified row and column.
+     *
+     * @param row The row which the Suitcase should begin being placed at in trunkState.
+     * @param col The column which the Suitcase should begin being placed at in trunkState.
+     * @param suitcase The Suitcase we want to put into the trunkState.
+     *
+     * @return A copy of the current Trunk with a new Suitcase put into it at the specified location.
+     */
     private Trunk generateCopyTrunk(int row, int col, Suitcase suitcase)
     {
         // runs the copy constructor giving us a new Trunk with the same state as current version
@@ -115,6 +153,13 @@ public class Trunk implements Configuration
         return copyTrunk;
     }
 
+    /**
+     * Fills the spaces that a suitcase (which) takes up in a Trunk starting at a certain row and column.
+     *
+     * @param startRow The row in the trunkState to begin filling at.
+     * @param startCol The column in the trunkState to begin filling at.
+     * @param which The suitcase we are attempting to "place" in trunkState.
+     */
     private void fillSpaces(int startRow, int startCol, Suitcase which)
     {
         // fills the space of the newly copied Trunk with the nextCase
@@ -132,8 +177,9 @@ public class Trunk implements Configuration
      *
      * @return The Suitcases which haven't been added yet.
      */
-    public Set<Suitcase> getNotYetAdded()
+    private Set<Suitcase> getNotYetAdded()
     {
+        // returns a new HashSet of the suitcases not added yet
         return new HashSet<>(toAdd);
     }
 
@@ -142,7 +188,7 @@ public class Trunk implements Configuration
      *
      * @return The length of the Trunk.
      */
-    public int getLength()
+    private int getLength()
     {
         return this.length;
     }
@@ -152,7 +198,7 @@ public class Trunk implements Configuration
      *
      * @return The width of the Trunk.
      */
-    public int getWidth()
+    private int getWidth()
     {
         return this.width;
     }
@@ -163,7 +209,8 @@ public class Trunk implements Configuration
      * @return True always.
      */
     @Override
-    public boolean isValid() {
+    public boolean isValid()
+    {
         return true;
     }
 
@@ -173,7 +220,8 @@ public class Trunk implements Configuration
      * @return True if we are at goal, false otherwise.
      */
     @Override
-    public boolean isGoal() {
+    public boolean isGoal()
+    {
         return toAdd.size() == 0;
     }
 
@@ -182,18 +230,25 @@ public class Trunk implements Configuration
      */
     @Override
     public void display() {
-        for(int row = 0; row < trunkState.length; ++row)
+        // goes through each row of trunkState
+        for (char[] row : this.trunkState)
         {
-            for(int col = 0; col < trunkState[row].length; ++col)
+            // goes through each char in row
+            for (char nextChar : row)
             {
-                System.out.print(((this.trunkState[row][col] == '\u0000') ? '-' : this.trunkState[row][col]) + " ");
+                // prints out either a '-' if there is no suitcase there, or the char itself
+                System.out.print(((nextChar == '\u0000') ? '-' : nextChar) + " ");
             }
+            // prints a new line
             System.out.println();
         }
 
+        // goes through each suitcase in toAdd
         for(Suitcase suitcase : toAdd)
         {
+            // displays each suitcase
             suitcase.display();
+            // prints a new line
             System.out.println();
         }
     }
