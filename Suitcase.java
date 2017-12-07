@@ -5,10 +5,20 @@
  */
 public class Suitcase {
 
+    /**
+     * The name of the Suitcase.
+     */
     private char name;
 
+    /**
+     * The length of the Suitcase.
+     */
     private int length;
+    /**
+     * The width of the Suitcase.
+     */
     private int width;
+
 
     /**
      * Make a new suitcase.
