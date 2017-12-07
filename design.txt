@@ -1,0 +1,78 @@
+Design optimizations:
+
+For this Lab there were two major optimizations that I made which sped up the program an incredible amount. They are listed below.
+
+1. Upon receiving a List of Suitcases to add, they were sorted by area using the following line: 
+
+toAdd.sort(
+	(s1, s2) -> (s2.getLength() * s2.getWidth()) - (s1.getLength() * s1.getWidth())
+);
+
+Although it was inefficient to have this run every time the copy constructor was called (since after the first time the list was sorted), it had no major impact on run time even for the 11x14 test case.
+
+2. The next optimization was to only generate valid configurations. This was achieved by maintaining a two dimensional char array which, once a suitcase was added, would reflect this by updating the char array to have each suitcase's char name in it's spot.
+
+Both of these optimizations as well as other minor logical updates made throughout the course of the lab resulted in the 11-14-full.txt test case to run in a wildly screaming 0.0 second. From test to test this varies a little bit probably because of instability with other applications running at the same time, however the maximum time it took was 0.6 second which is still incredibly fast.
+
+The solutions that were output by the program were somewhat different to the sample outputs provided, however the cases that had NO solution remained as no solution.
+
+Sample 11-14-full.txt output:
+TEST COMMENCING
+
+Suitcases:
+
+	J
+
+	I
+	I
+
+	HH
+
+	AAAA
+	AAAA
+
+	CC
+	CC
+	CC
+	CC
+	CC
+
+	DDDDDDDDDD
+
+	BBBBBBBBB
+	BBBBBBBBB
+	BBBBBBBBB
+
+	FFFFFFFFF
+	FFFFFFFFF
+
+	GGGGGGGGG
+	GGGGGGGGG
+	GGGGGGGGG
+	GGGGGGGGG
+
+	EEEEEEEEEE
+	EEEEEEEEEE
+	EEEEEEEEEE
+	EEEEEEEEEE
+
+...into a 11 x 14 trunk
+
+SOLVING...
+
+YES!
+E E E E E E E E E E H 
+E E E E E E E E E E H 
+E E E E E E E E E E I 
+E E E E E E E E E E I 
+G G G G G G G G G F F 
+G G G G G G G G G F F 
+G G G G G G G G G F F 
+G G G G G G G G G F F 
+B B B B B B B B B F F 
+B B B B B B B B B F F 
+B B B B B B B B B F F 
+C C C C C A A A A F F 
+C C C C C A A A A F F 
+D D D D D D D D D D J 
+Execution time 0.0 seconds

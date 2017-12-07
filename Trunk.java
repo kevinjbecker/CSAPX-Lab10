@@ -241,7 +241,9 @@ public class Trunk implements Configuration
             // goes through each char in row
             for (char nextChar : row)
             {
-                // prints out either a '-' if there is no suitcase there, or the char itself
+                // if the spot in the trunkState is a "NUL" unicode character, we print a '-' indicating
+                // an empty location
+                // if it isn't empty, we print the char
                 System.out.print(((nextChar == '\u0000') ? '-' : nextChar) + " ");
             }
             // prints a new line
